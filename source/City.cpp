@@ -1,5 +1,4 @@
 #include "../include/City.h"
-#include "City.h"
 
 City::City()
 {
@@ -13,22 +12,6 @@ City::City(string name, double lat, double lng)
     Latitude = lat;
     Longitude = lng;
 }
-
-string City::getCityName()
-{
-    return string();
-}
-
-double City::getLat()
-{
-    return this->Latitude;
-}
-
-double City::getIng()
-{
-    return this->Longitude;
-}
-
 City::~City()
 {
     // Destructor

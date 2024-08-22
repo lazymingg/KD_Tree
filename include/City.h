@@ -19,11 +19,6 @@ class City {
         // Constructor
         City();
         City(string name, double lat, double lng);
-
-        //Get data
-        string getCityName();
-        double getLat();
-        double getIng();
         // Destructor
         ~City();
         //getters
