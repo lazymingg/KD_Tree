@@ -1,8 +1,8 @@
 #ifndef KD_TREE_H
 #define KD_TREE_H
-
-
 #include "Util.h"
+#include <fstream>
+#include <sstream>
 // Include any necessary libraries or headers
 
 // Define your class or struct here
@@ -19,6 +19,8 @@ public:
     void deleteNode(City city);
     void nearestNeighbor(City city);
     void rangeSearch(City city1, City city2);
+    void readFile(string fileName);
+
     // Destructor
     ~KD_tree();
 
