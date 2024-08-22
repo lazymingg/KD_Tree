@@ -15,10 +15,8 @@ class Node
 public:
     Node();
     Node(City city, Node *left, Node *right);
-    Node* createNode(City city);
     ~Node();
-
-private:
+    
     Node *left;
     Node *right;
     City data;

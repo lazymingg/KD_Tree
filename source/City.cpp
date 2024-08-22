@@ -14,3 +14,24 @@ City::City(string name, double lat, double lng)
 City::~City() {
     // Destructor
 }
+//getters
+string City::getCityName() {
+    return CityName;
+}
+double City::getLatitude() {
+    return Latitude;
+}
+double City::getLongitude() {
+    return Longitude;
+}
+//setters
+void City::setCityName(string name) {
+    CityName = name;
+}
+void City::setLatitude(double lat) {
+    Latitude = lat;
+}
+void City::setLongitude(double lng) {
+    Longitude = lng;
+}
+

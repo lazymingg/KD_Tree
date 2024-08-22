@@ -21,6 +21,14 @@ class City {
         City(string name, double lat, double lng);
         // Destructor
         ~City();
+        //getters
+        string getCityName();
+        double getLatitude();
+        double getLongitude();
+        //setters
+        void setCityName(string name);
+        void setLatitude(double lat);
+        void setLongitude(double lng);
 
         // Member functions
     private:
