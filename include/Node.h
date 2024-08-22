@@ -10,19 +10,18 @@ using namespace std;
 // essential information including latitude, longitude, and city names
 // from the dataset.
 
-class Node {
+class Node
+{
 public:
-
     Node();
-
+    Node(City city, Node *left, Node *right);
+    Node* createNode(City city);
     ~Node();
 
-
-
 private:
-    Node* left;
-    Node* right;
-    City* data;
+    Node *left;
+    Node *right;
+    City data;
 };
 
 #endif // NODE_H
