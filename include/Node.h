@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-
+#include "City.h"
 // city,lat,lng,country,population
 // essential information including latitude, longitude, and city names
 // from the dataset.
@@ -22,7 +22,7 @@ public:
 private:
     Node* left;
     Node* right;
-    // city data
+    City* data;
 };
 
 #endif // NODE_H
