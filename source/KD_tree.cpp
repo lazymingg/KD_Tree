@@ -38,7 +38,7 @@ void KD_tree::insertNode(Node* &pRoot, City city, int depth)
     }
     else
     {
-        int cd = depth % 2;
+        int cd = depth % 2; // Tại sao tạo thêm biến cd?
         if (cd == 0)
         {
             if (city.getLatitude() < pRoot->data.getLatitude())
@@ -61,6 +61,41 @@ void KD_tree::insertNode(Node* &pRoot, City city, int depth)
                 insertNode(pRoot->right, city, depth + 1);
             }
         }
+    }
+}
+
+Node* KD_tree::searchNode(Node *pRoot, City &city, int depth)
+{
+    if (pRoot == nullptr)
+    {
+        return nullptr;
+    }
+    if (pRoot->data.getLatitude() == city.getLatitude() && pRoot->data.getLongitude() == city.getLongitude())
+    return pRoot;
+
+    if (depth % 2 == 0)
+    {
+        if (city.getLatitude() < pRoot->data.getLatitude())
+        {
+            return searchNode(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNode(pRoot->right, city, depth + 1);
+        }
+        
+    }
+    else
+    {
+        if (city.getLongitude() < pRoot->data.getLongitude())
+        {
+            return searchNode(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNode(pRoot->right, city, depth + 1);
+        }
+        
     }
 }
 
@@ -101,6 +136,18 @@ void KD_tree::getPostOrder(Node* pRoot, int& order)
         cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
         order++;
     }
+}
+
+void KD_tree::deleteTree(Node *&pRoot)
+{
+    if (pRoot == NULL)
+        return;
+
+    deleteTree(pRoot->right);
+    deleteTree(pRoot->left);
+    delete pRoot;
+
+    pRoot = NULL;
 }
 
 void KD_tree::readFile(string fileName)

@@ -35,3 +35,8 @@
 //         cout << "Longitude: " << root->data.getLongitude() << endl;
 //     }
 // }
+
+Node **RangeSearchUtil(Node *root, point2D bottom_left, point2D top_right)
+{
+    return nullptr;
+}
