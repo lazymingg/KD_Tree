@@ -48,15 +48,13 @@ void KD_tree::readFile(string fileName)
         double lat;
         double lng;
 
-        getline(fs, cityName, ',');
-        getline(fs, cityLat, ',');
-        getline(fs, cityLng, ',');
+        getline(ss, cityName, ',');
+        getline(ss, cityLat, ',');
+        getline(ss, cityLng, ',');
 
         if (cityLat == "")
         {
             lat = 0;
-            continue;
-            // There is an error where the getline somehow still read the last line???
         }
         else
         {
@@ -66,7 +64,6 @@ void KD_tree::readFile(string fileName)
         if (cityLng == "")
         {
             lng = 0;
-            continue;
         }
         else
         {
