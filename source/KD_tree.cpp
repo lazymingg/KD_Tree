@@ -4,14 +4,17 @@ KD_tree::KD_tree()
 {
     root = nullptr;
 }
+
 KD_tree::~KD_tree()
 {
     // Destructor
 }
+
 void KD_tree::insert(City city)
 {
     insertUtil(root, city, 0);
 }
+
 void KD_tree::preOrder()
 {
     preOrderUtil(root);
@@ -24,6 +27,43 @@ void KD_tree::postOrder()
 {
     postOrderUtil(root);
 }
+
+// bỏ hàm này sang util nhé
+Node* KD_tree::searchNode(Node *pRoot, City &city, int depth)
+{
+    if (pRoot == nullptr)
+    {
+        return nullptr;
+    }
+    if (pRoot->data.getLatitude() == city.getLatitude() && pRoot->data.getLongitude() == city.getLongitude())
+    return pRoot;
+
+    if (depth % 2 == 0)
+    {
+        if (city.getLatitude() < pRoot->data.getLatitude())
+        {
+            return searchNode(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNode(pRoot->right, city, depth + 1);
+        }
+        
+    }
+    else
+    {
+        if (city.getLongitude() < pRoot->data.getLongitude())
+        {
+            return searchNode(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNode(pRoot->right, city, depth + 1);
+        }
+        
+    }
+}
+
 void KD_tree::readFile(string fileName)
 {
     fstream fs;
@@ -73,4 +113,16 @@ void KD_tree::readFile(string fileName)
         insert(getCity);
     }
     fs.close();
+}
+
+void KD_tree::deleteTree()
+{
+    deleteTreeUtil(root);
+}
+
+vector<Node*> KD_tree::RangeSearch(const point2D& bottom_left, const point2D& top_right)
+{
+    vector<Node*> res;
+    RangeSearchUtil(res, root, bottom_left, top_right, 0);
+    return res;
 }

@@ -16,14 +16,16 @@ public:
 
     void insert(City city);
     void search(City city);
+
     void preOrder();
     void inOrder();
     void postOrder();
+
+    void deleteTree();
     void deleteNode(City city);
     void nearestNeighbor(City city);
-    void rangeSearch(City city1, City city2);
     void readFile(string fileName);
-
+    vector<Node*> RangeSearch(const point2D& bottom_left, const point2D& top_right);
     // Destructor
     ~KD_tree();
 
