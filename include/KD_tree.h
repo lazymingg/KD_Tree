@@ -15,7 +15,7 @@ public:
     KD_tree();
 
     void insert(City city);
-    void search(City city);
+    Node* search(City city);
 
     void preOrder();
     void inOrder();
@@ -26,6 +26,7 @@ public:
     void nearestNeighbor(City city);
     void readFile(string fileName);
     vector<Node*> RangeSearch(const point2D& bottom_left, const point2D& top_right);
+
     // Destructor
     ~KD_tree();
 

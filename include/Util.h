@@ -15,5 +15,6 @@ void postOrderUtil(Node *root);
 void deleteTreeUtil(Node *root);
 void deleteNodeUtil(Node *root, City city);
 void RangeSearchUtil(vector<Node*>& res, Node* root, const point2D& bottom_left, const point2D& top_right, int depth);
+Node* searchNodeUtil(Node* pRoot, City city, int depth);
 
 #endif // UTIL_H

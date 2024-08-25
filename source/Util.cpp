@@ -109,3 +109,38 @@ void deleteTreeUtil(Node *root)
         delete root;
     }
 }
+
+Node* searchNodeUtil(Node* pRoot, City city, int depth)
+{
+    if (pRoot == nullptr)
+    {
+        return nullptr;
+    }
+    if (pRoot->data.getLatitude() == city.getLatitude() && pRoot->data.getLongitude() == city.getLongitude())
+    return pRoot;
+
+    if (depth % 2 == 0)
+    {
+        if (city.getLatitude() < pRoot->data.getLatitude())
+        {
+            return searchNodeUtil(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNodeUtil(pRoot->right, city, depth + 1);
+        }
+        
+    }
+    else
+    {
+        if (city.getLongitude() < pRoot->data.getLongitude())
+        {
+            return searchNodeUtil(pRoot->left, city, depth + 1);
+        }
+        else 
+        {
+            return searchNodeUtil(pRoot->right, city, depth + 1);
+        }
+        
+    }
+}
