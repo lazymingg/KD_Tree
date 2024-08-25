@@ -10,16 +10,19 @@ KD_tree::~KD_tree()
     // Destructor
 }
 
-void KD_tree::insert(City city){
+void KD_tree::insert(City city)
+{
     insertNode(root, city, 0);
 }
 
-void KD_tree::preOrder(){
+void KD_tree::preOrder()
+{
     int start = 0;
     getPreOrder(root, start);
 }
 
-void KD_tree::inOrder(){
+void KD_tree::inOrder()
+{
     int start = 0;
     getInOrder(root, start);
 }
@@ -27,6 +30,11 @@ void KD_tree::inOrder(){
 void KD_tree::postOrder(){
     int start = 0;
     getPostOrder(root, start);
+}
+
+void KD_tree::remove()
+{
+    deleteTree(root);
 }
 
 void KD_tree::insertNode(Node* &pRoot, City city, int depth)
@@ -205,3 +213,10 @@ void KD_tree::readFile(string fileName)
 // {
 //     deleteTreeUtil(root);
 // }
+
+vector<Node*> KD_tree::RangeSearch(const point2D& bottom_left, const point2D& top_right)
+{
+    vector<Node*> res;
+    RangeSearchUtil(res, root, bottom_left, top_right, 0);
+    return res;
+}

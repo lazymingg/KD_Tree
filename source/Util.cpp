@@ -36,7 +36,31 @@
 //     }
 // }
 
-Node **RangeSearchUtil(Node *root, point2D bottom_left, point2D top_right)
+void RangeSearchUtil(vector<Node*>& res, Node* root, const point2D& bottom_left, const point2D& top_right, int depth)
 {
-    return nullptr;
+    if (!root)
+        return;
+    
+    if (root->getData().getLongitude() >= bottom_left.longitude && root->getData().getLatitude() >= bottom_left.latitude && 
+        root->getData().getLongitude() <= top_right.longitude && root->getData().getLatitude() <= top_right.latitude)
+        res.push_back(root);
+
+
+    if (depth % 2 == 0)
+    {
+        if (bottom_left.latitude <= root->getData().getLatitude())
+            RangeSearchUtil(res, root->getLeft(), bottom_left, top_right, depth + 1);
+        if (top_right.latitude >= root->getData().getLatitude())
+            RangeSearchUtil(res, root->getRight(), bottom_left, top_right, depth + 1);
+    }
+
+    else 
+    {
+        if (bottom_left.longitude <= root->getData().getLongitude()) {
+            RangeSearchUtil(res, root->getLeft(), bottom_left, top_right, depth + 1);
+        }
+        if (top_right.longitude >= root->getData().getLongitude()) {
+            RangeSearchUtil(res, root->getRight(), bottom_left, top_right, depth + 1);
+        }
+    }
 }

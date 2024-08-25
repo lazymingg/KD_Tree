@@ -21,9 +21,9 @@ public:
     void postOrder();
     void deleteNode(City city);
     void nearestNeighbor(City city);
-    void rangeSearch(City city1, City city2);
     void readFile(string fileName);
-
+    vector<Node*> RangeSearch(const point2D& bottom_left, const point2D& top_right);
+    void remove();
     // Destructor
     ~KD_tree();
 
