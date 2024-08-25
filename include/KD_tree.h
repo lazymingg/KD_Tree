@@ -3,6 +3,8 @@
 #include "Util.h"
 #include <fstream>
 #include <sstream>
+
+using namespace std;
 // Include any necessary libraries or headers
 
 // Define your class or struct here
@@ -11,6 +13,7 @@ class KD_tree
 public:
     // Constructor
     KD_tree();
+
     void insert(City city);
     void search(City city);
     void preOrder();
@@ -24,10 +27,15 @@ public:
     // Destructor
     ~KD_tree();
 
-    // Member functions
 private:
     // Member variables
     Node *root;
+
+    void insertNode(Node* &pRoot, City city, int depth);
+    void getPreOrder(Node* pRoot, int& order);
+    void getInOrder(Node* pRoot, int& order);
+    void getPostOrder(Node* pRoot, int& order);
+    void deleteTree();
 };
 // Declare any member variables or functions
 

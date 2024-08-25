@@ -4,25 +4,103 @@ KD_tree::KD_tree()
 {
     root = nullptr;
 }
+
 KD_tree::~KD_tree()
 {
     // Destructor
 }
-void KD_tree::insert(City city)
-{
-    insertUtil(root, city, 0);
+
+void KD_tree::insert(City city){
+    insertNode(root, city, 0);
 }
-void KD_tree::preOrder()
-{
-    preOrderUtil(root);
+
+void KD_tree::preOrder(){
+    int start = 0;
+    getPreOrder(root, start);
 }
-void KD_tree::inOrder()
-{
-    inOrderUtil(root);
+
+void KD_tree::inOrder(){
+    int start = 0;
+    getInOrder(root, start);
 }
-void KD_tree::postOrder()
+
+void KD_tree::postOrder(){
+    int start = 0;
+    getPostOrder(root, start);
+}
+
+void KD_tree::insertNode(Node* &pRoot, City city, int depth)
 {
-    postOrderUtil(root);
+    if (pRoot == nullptr)
+    {
+        pRoot = new Node(city, nullptr, nullptr);
+        return;
+    }
+    else
+    {
+        int cd = depth % 2;
+        if (cd == 0)
+        {
+            if (city.getLatitude() < pRoot->data.getLatitude())
+            {
+                insertNode(pRoot->left, city, depth + 1);
+            }
+            else
+            {
+                insertNode(pRoot->right, city, depth + 1);
+            }
+        }
+        else
+        {
+            if (city.getLongitude() < pRoot->data.getLongitude())
+            {
+                insertNode(pRoot->left, city, depth + 1);
+            }
+            else
+            {
+                insertNode(pRoot->right, city, depth + 1);
+            }
+        }
+    }
+}
+
+void KD_tree::getPreOrder(Node* pRoot, int& order)
+{
+    if (pRoot != nullptr)
+    {
+        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
+        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
+        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
+        order++;
+        getPreOrder(pRoot->left, order);
+        getPreOrder(pRoot->right, order);
+    }
+}
+
+void KD_tree::getInOrder(Node* pRoot, int& order)
+{
+    if (pRoot != nullptr)
+    {
+        getInOrder(pRoot->left, order);
+        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
+        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
+        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
+        order++;
+        getInOrder(pRoot->right, order);
+    }
+}
+
+void KD_tree::getPostOrder(Node* pRoot, int& order)
+{
+    if (pRoot != nullptr)
+    {
+        getPostOrder(root->left, order);
+        getPostOrder(root->right, order);
+        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
+        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
+        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
+        order++;
+    }
 }
 
 void KD_tree::readFile(string fileName)
@@ -48,15 +126,13 @@ void KD_tree::readFile(string fileName)
         double lat;
         double lng;
 
-        getline(fs, cityName, ',');
-        getline(fs, cityLat, ',');
-        getline(fs, cityLng, ',');
+        getline(ss, cityName, ',');
+        getline(ss, cityLat, ',');
+        getline(ss, cityLng, ',');
 
         if (cityLat == "")
         {
             lat = 0;
-            continue;
-            // There is an error where the getline somehow still read the last line???
         }
         else
         {
@@ -66,7 +142,6 @@ void KD_tree::readFile(string fileName)
         if (cityLng == "")
         {
             lng = 0;
-            continue;
         }
         else
         {
@@ -74,8 +149,12 @@ void KD_tree::readFile(string fileName)
         }
 
         City getCity(cityName, lat, lng);
-        insertUtil(root, getCity);
+        insert(getCity);
     }
-
     fs.close();
 }
+
+// void KD_tree::deleteTree()
+// {
+//     deleteTreeUtil(root);
+// }
