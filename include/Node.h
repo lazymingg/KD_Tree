@@ -27,10 +27,10 @@ public:
     void setData(City city);
 
     friend class KD_tree;
-private:
     Node *left;
     Node *right;
     City data;
+private:
 
 };
 

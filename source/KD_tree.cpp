@@ -4,105 +4,26 @@ KD_tree::KD_tree()
 {
     root = nullptr;
 }
-
 KD_tree::~KD_tree()
 {
     // Destructor
 }
-
-void KD_tree::insert(City city){
-    insertNode(root, city, 0);
-}
-
-void KD_tree::preOrder(){
-    int start = 0;
-    getPreOrder(root, start);
-}
-
-void KD_tree::inOrder(){
-    int start = 0;
-    getInOrder(root, start);
-}
-
-void KD_tree::postOrder(){
-    int start = 0;
-    getPostOrder(root, start);
-}
-
-void KD_tree::insertNode(Node* &pRoot, City city, int depth)
+void KD_tree::insert(City city)
 {
-    if (pRoot == nullptr)
-    {
-        pRoot = new Node(city, nullptr, nullptr);
-        return;
-    }
-    else
-    {
-        int cd = depth % 2;
-        if (cd == 0)
-        {
-            if (city.getLatitude() < pRoot->data.getLatitude())
-            {
-                insertNode(pRoot->left, city, depth + 1);
-            }
-            else
-            {
-                insertNode(pRoot->right, city, depth + 1);
-            }
-        }
-        else
-        {
-            if (city.getLongitude() < pRoot->data.getLongitude())
-            {
-                insertNode(pRoot->left, city, depth + 1);
-            }
-            else
-            {
-                insertNode(pRoot->right, city, depth + 1);
-            }
-        }
-    }
+    insertUtil(root, city, 0);
 }
-
-void KD_tree::getPreOrder(Node* pRoot, int& order)
+void KD_tree::preOrder()
 {
-    if (pRoot != nullptr)
-    {
-        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
-        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
-        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
-        order++;
-        getPreOrder(pRoot->left, order);
-        getPreOrder(pRoot->right, order);
-    }
+    preOrderUtil(root);
 }
-
-void KD_tree::getInOrder(Node* pRoot, int& order)
+void KD_tree::inOrder()
 {
-    if (pRoot != nullptr)
-    {
-        getInOrder(pRoot->left, order);
-        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
-        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
-        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
-        order++;
-        getInOrder(pRoot->right, order);
-    }
+    inOrderUtil(root);
 }
-
-void KD_tree::getPostOrder(Node* pRoot, int& order)
+void KD_tree::postOrder()
 {
-    if (pRoot != nullptr)
-    {
-        getPostOrder(root->left, order);
-        getPostOrder(root->right, order);
-        cout << order << ".City Name: " << pRoot->data.getCityName() << endl;
-        cout << "Latitude: " << pRoot->data.getLatitude() << " - ";
-        cout << "Longitude: " << pRoot->data.getLongitude() << "\n\n";
-        order++;
-    }
+    postOrderUtil(root);
 }
-
 void KD_tree::readFile(string fileName)
 {
     fstream fs;
@@ -153,8 +74,3 @@ void KD_tree::readFile(string fileName)
     }
     fs.close();
 }
-
-// void KD_tree::deleteTree()
-// {
-//     deleteTreeUtil(root);
-// }

@@ -32,9 +32,6 @@ private:
     Node *root;
 
     void insertNode(Node* &pRoot, City city, int depth);
-    void getPreOrder(Node* pRoot, int& order);
-    void getInOrder(Node* pRoot, int& order);
-    void getPostOrder(Node* pRoot, int& order);
     void deleteTree();
 };
 // Declare any member variables or functions
