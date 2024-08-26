@@ -182,14 +182,9 @@ void deleteTree(Node* &root)
     }
 }
 
-vector<Node*> RangeSearch(Node* root, const Point2D& bottom_left, const Point2D& top_right)
-{
-    vector<Node*> res;
-    RangeSearchUtil(res, root, bottom_left, top_right, 0);
-    return res;
-}
 
-void RangeSearchUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+// Range Search for KD_Tree
+void searchRangeUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
 {
     if (!root)
         return;
@@ -202,18 +197,36 @@ void RangeSearchUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left,
     if (depth % 2 == 0)
     {
         if (bottom_left.latitude <= root->data.location.latitude)
-            RangeSearchUtil(res, root->left, bottom_left, top_right, depth + 1);
+            searchRangeUtil(res, root->left, bottom_left, top_right, depth + 1);
         if (top_right.latitude >= root->data.location.latitude)
-            RangeSearchUtil(res, root->right, bottom_left, top_right, depth + 1);
+            searchRangeUtil(res, root->right, bottom_left, top_right, depth + 1);
     }
 
     else 
     {
         if (bottom_left.longitude <= root->data.location.longitude) {
-            RangeSearchUtil(res, root->left, bottom_left, top_right, depth + 1);
+            searchRangeUtil(res, root->left, bottom_left, top_right, depth + 1);
         }
         if (top_right.longitude >= root->data.location.longitude) {
-            RangeSearchUtil(res, root->right, bottom_left, top_right, depth + 1);
+            searchRangeUtil(res, root->right, bottom_left, top_right, depth + 1);
         }
     }
+}
+
+vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D& top_right)
+{
+    vector<Node*> res;
+    if (bottom_left.longitude > top_right.longitude || bottom_left.latitude > top_right.latitude)
+    {
+        cout << "Invalid bottom_left and top_right!\n";
+        return res;
+    }
+    searchRangeUtil(res, root, bottom_left, top_right, 0);
+    return res;
+}
+
+// Nearest Neighbor Search
+Node* searchNearestNeighbor(Node* root, City city)
+{
+
 }

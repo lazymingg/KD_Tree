@@ -15,7 +15,7 @@ int main()
     cin >> top_right.latitude;
     cout << "Input top_right's longitude: ";
     cin >> top_right.longitude;
-    vector<Node*> Range = RangeSearch(tree.root, bottom_left, top_right);
+    vector<Node*> Range = searchRange(tree.root, bottom_left, top_right);
 
     for (int i = 0; i < Range.size(); i++)
         cout << i + 1 << ". " << Range[i]->data.cityName << ": " << Range[i]->data.location.latitude << " - " << Range[i]->data.location.longitude << endl;

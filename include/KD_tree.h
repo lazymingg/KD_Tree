@@ -25,9 +25,8 @@ void inOrder(Node* root);
 void postOrder(Node* root);
 
 void deleteTree(Node* &root);
-void nearestNeighbor(Node* root, City city);
 void readFile(Node* &root, string fileName);
-vector<Node*> RangeSearch(Node* root, const Point2D& bottom_left, const Point2D& top_right);
-void RangeSearchUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth);
+vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D& top_right);
+Node* searchNearestNeighbor(Node* root, City city);
 
 #endif // KD_TREE_H
