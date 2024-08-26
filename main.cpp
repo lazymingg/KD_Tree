@@ -6,15 +6,9 @@ int main()
     readFile(tree.root, "data.csv");
     preOrder(tree.root);
 
-    Point2D bottom_left, top_right;
-    cout << "Input bottom_left's latitude: ";
-    cin >> bottom_left.latitude;
-    cout << "Input bottom_left's longitude: ";
-    cin >> bottom_left.longitude;
-    cout << "Input top_right's latitude: ";
-    cin >> top_right.latitude;
-    cout << "Input top_right's longitude: ";
-    cin >> top_right.longitude;
+    Point2D bottom_left = inputPoint2D("bottom_left point"),
+            top_right = inputPoint2D("top_right point");
+
     vector<Node*> Range = searchRange(tree.root, bottom_left, top_right);
 
     for (int i = 0; i < Range.size(); i++)

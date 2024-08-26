@@ -29,4 +29,6 @@ struct City
     ~City();
 };
 
+Point2D inputPoint2D(string PointName);
+
 #endif // CITY_H

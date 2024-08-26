@@ -184,7 +184,9 @@ void deleteTree(Node* &root)
 
 
 // Range Search for KD_Tree
-void searchRangeUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+
+// bottom_left.longitude < top_right.longitude
+void searchRangeUtil_case1(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
 {
     if (!root)
         return;
@@ -197,36 +199,67 @@ void searchRangeUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left,
     if (depth % 2 == 0)
     {
         if (bottom_left.latitude <= root->data.location.latitude)
-            searchRangeUtil(res, root->left, bottom_left, top_right, depth + 1);
+            searchRangeUtil_case1(res, root->left, bottom_left, top_right, depth + 1);
         if (top_right.latitude >= root->data.location.latitude)
-            searchRangeUtil(res, root->right, bottom_left, top_right, depth + 1);
+            searchRangeUtil_case1(res, root->right, bottom_left, top_right, depth + 1);
     }
 
     else 
     {
-        if (bottom_left.longitude <= root->data.location.longitude) {
-            searchRangeUtil(res, root->left, bottom_left, top_right, depth + 1);
-        }
-        if (top_right.longitude >= root->data.location.longitude) {
-            searchRangeUtil(res, root->right, bottom_left, top_right, depth + 1);
-        }
+        if (bottom_left.longitude <= root->data.location.longitude)
+            searchRangeUtil_case1(res, root->left, bottom_left, top_right, depth + 1);
+        if (top_right.longitude >= root->data.location.longitude)
+            searchRangeUtil_case1(res, root->right, bottom_left, top_right, depth + 1);
+    }
+}
+
+// bottom_left.longitude >= top_right.longitude
+void searchRangeUtil_case2(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+{
+    if (!root)
+        return;
+    
+    if (root->data.location.latitude >= bottom_left.latitude && root->data.location.latitude <= top_right.latitude && 
+        (root->data.location.longitude <= top_right.longitude ||  root->data.location.longitude >= bottom_left.longitude))
+        res.push_back(root);
+
+
+    if (depth % 2 == 0)
+    {
+        if (bottom_left.latitude <= root->data.location.latitude)
+            searchRangeUtil_case2(res, root->left, bottom_left, top_right, depth + 1);
+        if (top_right.latitude >= root->data.location.latitude)
+            searchRangeUtil_case2(res, root->right, bottom_left, top_right, depth + 1);
+    }
+
+    else 
+    {
+        //if (bottom_left.longitude <= root->data.location.longitude)
+            searchRangeUtil_case2(res, root->left, bottom_left, top_right, depth + 1);
+        //if (top_right.longitude >= root->data.location.longitude)
+            searchRangeUtil_case2(res, root->right, bottom_left, top_right, depth + 1);
     }
 }
 
 vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D& top_right)
 {
     vector<Node*> res;
-    if (bottom_left.longitude > top_right.longitude || bottom_left.latitude > top_right.latitude)
+    if (bottom_left.latitude > top_right.latitude)
     {
-        cout << "Invalid bottom_left and top_right!\n";
+        cout << "Bottom-left point's latitude must be less than top-right point's latitude!\n";
         return res;
     }
-    searchRangeUtil(res, root, bottom_left, top_right, 0);
+
+    if (bottom_left.longitude < top_right.longitude)
+        searchRangeUtil_case1(res, root, bottom_left, top_right, 0);
+    else
+        searchRangeUtil_case2(res, root, bottom_left, top_right, 0);
+    
     return res;
 }
 
 // Nearest Neighbor Search
 Node* searchNearestNeighbor(Node* root, City city)
 {
-
+    return nullptr;
 }

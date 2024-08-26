@@ -18,3 +18,28 @@ City::~City()
 {
     // Destructor
 }
+
+Point2D inputPoint2D(string PointName)
+{
+    Point2D point;
+    
+    cout << "Input " << PointName << "'s latitude: ";
+    cin >> point.latitude;
+    cout << "Input " << PointName << "'s longitude: ";
+    cin >> point.longitude;
+
+
+    while (point.latitude < -90 || point.latitude > 90 || point.longitude < -180 || point.longitude > 180)
+    {
+        cout << "Invalide range!\n";
+        cout << "Latitude must be in [-90,90]\n";
+        cout << "Longitude must be in [-180,180]\n";
+
+        cout << "Input " << PointName << "'s latitude: ";
+        cin >> point.latitude;
+        cout << "Input " << PointName << "'s longitude: ";
+        cin >> point.longitude;
+    }
+
+    return point;
+}
