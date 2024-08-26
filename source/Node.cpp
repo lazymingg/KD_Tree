@@ -17,33 +17,3 @@ Node::Node(City city, Node *left, Node *right)
     this->left = left;
     this->right = right;
 }
-
-Node* Node::getLeft()
-{
-    return this->left;
-}
-
-Node* Node::getRight()
-{
-    return this->right;
-}
-
-City Node::getData()
-{
-    return this->data;
-}
-
-void Node::setLeft(Node *node)
-{
-    left = node;
-}
-
-void Node::setRight(Node *node)
-{
-    right = node;
-}
-
-void Node::setData(City city)
-{
-    data = city;
-}

@@ -2,38 +2,19 @@
 
 City::City()
 {
-    CityName = "";
-    Latitude = 0.0;
-    Longitude = 0.0;
+    cityName = "";
+    location.latitude = 0.0;
+    location.longitude = 0.0;
 }
-City::City(string name, double lat, double lng)
+
+City::City(string name, Point2D location)
 {
-    CityName = name;
-    Latitude = lat;
-    Longitude = lng;
+    cityName = name;
+    this->location.latitude = location.latitude;
+    this->location.longitude = location.longitude;
 }
+
 City::~City()
 {
     // Destructor
 }
-//getters
-string City::getCityName() {
-    return CityName;
-}
-double City::getLatitude() {
-    return Latitude;
-}
-double City::getLongitude() {
-    return Longitude;
-}
-//setters
-void City::setCityName(string name) {
-    CityName = name;
-}
-void City::setLatitude(double lat) {
-    Latitude = lat;
-}
-void City::setLongitude(double lng) {
-    Longitude = lng;
-}
-

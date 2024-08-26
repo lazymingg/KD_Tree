@@ -9,32 +9,24 @@
 #include <vector>
 using namespace std;
 
-
 // Declare any necessary classes or structs
 // city,lat,lng,country,population
 // essential information including latitude, longitude, and city names
 // from the dataset.
-class City {
-    public:
-        // Constructor
-        City();
-        City(string name, double lat, double lng);
-        // Destructor
-        ~City();
-        //getters
-        string getCityName();
-        double getLatitude();
-        double getLongitude();
-        //setters
-        void setCityName(string name);
-        void setLatitude(double lat);
-        void setLongitude(double lng);
 
-        // Member functions
-    private:
-        // Member variables
-        string CityName;
-        double Latitude;
-        double Longitude;    
+struct Point2D {
+    double latitude;
+    double longitude;
 };
+
+struct City
+{
+    string cityName;
+    Point2D location;
+    
+    City();
+    City(string name, Point2D location);
+    ~City();
+};
+
 #endif // CITY_H

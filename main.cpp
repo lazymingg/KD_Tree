@@ -3,10 +3,10 @@
 int main()
 {
     KD_tree tree;
-    tree.readFile("data.csv");
-    tree.preOrder();
+    readFile(tree.root, "data.csv");
+    preOrder(tree.root);
 
-    point2D bottom_left, top_right;
+    Point2D bottom_left, top_right;
     cout << "Input bottom_left's latitude: ";
     cin >> bottom_left.latitude;
     cout << "Input bottom_left's longitude: ";
@@ -15,12 +15,12 @@ int main()
     cin >> top_right.latitude;
     cout << "Input top_right's longitude: ";
     cin >> top_right.longitude;
-    vector<Node*> Range = tree.RangeSearch(bottom_left, top_right);
+    vector<Node*> Range = RangeSearch(tree.root, bottom_left, top_right);
 
     for (int i = 0; i < Range.size(); i++)
-        cout << i + 1 << ". " << Range[i]->getData().getCityName() << ": " << Range[i]->getData().getLatitude() << " - " << Range[i]->getData().getLongitude() << endl;
+        cout << i + 1 << ". " << Range[i]->data.cityName << ": " << Range[i]->data.location.latitude << " - " << Range[i]->data.location.longitude << endl;
 
-    tree.remove();
+    deleteTree(tree.root);
 
     return 0;
 }

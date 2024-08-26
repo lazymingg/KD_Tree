@@ -10,31 +10,118 @@ KD_tree::~KD_tree()
     // Destructor
 }
 
-void KD_tree::insert(City city)
+Node* createNode(City city)
 {
-    insertUtil(root, city, 0);
+    Node *newNode = new Node(city, nullptr, nullptr);
+    return newNode;
 }
 
-void KD_tree::preOrder()
+void insert(Node* &root, City city, int depth)
 {
-    preOrderUtil(root);
-}
-void KD_tree::inOrder()
-{
-    inOrderUtil(root);
-}
-void KD_tree::postOrder()
-{
-    postOrderUtil(root);
+    if (root == nullptr)
+    {
+        root = createNode(city);
+    }
+    else
+    {
+        int cd = depth % 2;
+        if (cd == 0)
+        {
+            if (city.location.latitude < root->data.location.latitude)
+            {
+                insert(root->left, city, depth + 1);
+            }
+            else
+            {
+                insert(root->right, city, depth + 1);
+            }
+        }
+        else
+        {
+            if (city.location.longitude < root->data.location.longitude)
+            {
+                insert(root->left, city, depth + 1);
+            }
+            else
+            {
+                insert(root->right, city, depth + 1);
+            }
+        }
+    }
 }
 
-// bỏ hàm này sang util nhé
-Node* KD_tree::search(City city)
+void preOrder(Node* root)
 {
-    return searchNodeUtil(root, city, 0);
+    if (root != nullptr)
+    {
+        cout << "City Name: " << root->data.cityName << endl;
+        cout << "Latitude: " << root->data.location.latitude << endl;
+        cout << "Longitude: " << root->data.location.longitude << endl;
+        preOrder(root->left);
+        preOrder(root->right);
+    }
 }
 
-void KD_tree::readFile(string fileName)
+void inOrder(Node* root)
+{
+    if (root != nullptr)
+    {
+        inOrder(root->left);
+        cout << "City Name: " << root->data.cityName << endl;
+        cout << "Latitude: " << root->data.location.latitude << endl;
+        cout << "Longitude: " << root->data.location.longitude << endl;
+        inOrder(root->right);
+    }
+}
+
+void postOrder(Node* root)
+{
+    if (root != nullptr)
+    {
+        postOrder(root->left);
+        postOrder(root->right);
+        cout << "City Name: " << root->data.cityName << endl;
+        cout << "Latitude: " << root->data.location.latitude << endl;
+        cout << "Longitude: " << root->data.location.longitude << endl;
+    }
+}
+
+Node* search(Node* root, City city, int depth)
+{
+    if (root == nullptr)
+    {
+        return nullptr;
+    }
+    if (root->data.location.latitude == city.location.latitude && root->data.location.latitude == city.location.latitude)
+    return root;
+
+    if (depth % 2 == 0)
+    {
+        if (city.location.latitude < root->data.location.latitude)
+        {
+            return search(root->left, city, depth + 1);
+        }
+        else 
+        {
+            return search(root->right, city, depth + 1);
+        }
+        
+    }
+    else
+    {
+        if (city.location.latitude < root->data.location.latitude)
+        {
+            return search(root->left, city, depth + 1);
+        }
+        else 
+        {
+            return search(root->right, city, depth + 1);
+        }
+        
+    }
+}
+
+void readFile(Node* &root, string fileName)
 {
     fstream fs;
     string filePath = "data/" + fileName;
@@ -79,20 +166,54 @@ void KD_tree::readFile(string fileName)
             lng = stod(cityLng);
         }
 
-        City getCity(cityName, lat, lng);
-        insert(getCity);
+        City getCity(cityName, {lat, lng});
+        insert(root, getCity, 0);
     }
     fs.close();
 }
 
-void KD_tree::deleteTree()
+void deleteTree(Node* &root)
 {
-    deleteTreeUtil(root);
+    if (root != nullptr)
+    {
+        deleteTree(root->left);
+        deleteTree(root->right);
+        delete root;
+    }
 }
 
-vector<Node*> KD_tree::RangeSearch(const point2D& bottom_left, const point2D& top_right)
+vector<Node*> RangeSearch(Node* root, const Point2D& bottom_left, const Point2D& top_right)
 {
     vector<Node*> res;
     RangeSearchUtil(res, root, bottom_left, top_right, 0);
     return res;
+}
+
+void RangeSearchUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+{
+    if (!root)
+        return;
+    
+    if (root->data.location.longitude >= bottom_left.longitude && root->data.location.latitude >= bottom_left.latitude && 
+        root->data.location.longitude <= top_right.longitude && root->data.location.latitude <= top_right.latitude)
+        res.push_back(root);
+
+
+    if (depth % 2 == 0)
+    {
+        if (bottom_left.latitude <= root->data.location.latitude)
+            RangeSearchUtil(res, root->left, bottom_left, top_right, depth + 1);
+        if (top_right.latitude >= root->data.location.latitude)
+            RangeSearchUtil(res, root->right, bottom_left, top_right, depth + 1);
+    }
+
+    else 
+    {
+        if (bottom_left.longitude <= root->data.location.longitude) {
+            RangeSearchUtil(res, root->left, bottom_left, top_right, depth + 1);
+        }
+        if (top_right.longitude >= root->data.location.longitude) {
+            RangeSearchUtil(res, root->right, bottom_left, top_right, depth + 1);
+        }
+    }
 }

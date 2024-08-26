@@ -7,36 +7,27 @@
 using namespace std;
 // Include any necessary libraries or headers
 
-// Define your class or struct here
-class KD_tree
+
+struct KD_tree
 {
-public:
-    // Constructor
+    Node* root;
     KD_tree();
-
-    void insert(City city);
-    Node* search(City city);
-
-    void preOrder();
-    void inOrder();
-    void postOrder();
-
-    void deleteTree();
-    void deleteNode(City city);
-    void nearestNeighbor(City city);
-    void readFile(string fileName);
-    vector<Node*> RangeSearch(const point2D& bottom_left, const point2D& top_right);
-
-    // Destructor
     ~KD_tree();
-
-private:
-    // Member variables
-    Node *root;
-
-    void insertNode(Node* &pRoot, City city, int depth);
-    void deleteTree();
 };
-// Declare any member variables or functions
+
+Node* createNode(City city);
+
+void insert(Node* &root, City city, int depth);
+Node* search(Node* root, City city, int depth);
+
+void preOrder(Node* root);
+void inOrder(Node* root);
+void postOrder(Node* root);
+
+void deleteTree(Node* &root);
+void nearestNeighbor(Node* root, City city);
+void readFile(Node* &root, string fileName);
+vector<Node*> RangeSearch(Node* root, const Point2D& bottom_left, const Point2D& top_right);
+void RangeSearchUtil(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth);
 
 #endif // KD_TREE_H
