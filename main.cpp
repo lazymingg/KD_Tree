@@ -20,7 +20,7 @@ int main()
     for (int i = 0; i < Range.size(); i++)
         cout << i + 1 << ". " << Range[i]->getData().getCityName() << ": " << Range[i]->getData().getLatitude() << " - " << Range[i]->getData().getLongitude() << endl;
 
-    tree.remove();
+    tree.deleteTree();
 
     return 0;
 }

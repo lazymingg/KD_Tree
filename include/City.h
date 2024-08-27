@@ -29,9 +29,6 @@ class City {
         void setCityName(string name);
         void setLatitude(double lat);
         void setLongitude(double lng);
-
-        // Member functions
-    private:
         // Member variables
         string CityName;
         double Latitude;

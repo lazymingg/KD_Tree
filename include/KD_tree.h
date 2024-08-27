@@ -30,12 +30,10 @@ public:
     // Destructor
     ~KD_tree();
 
-private:
     // Member variables
     Node *root;
 
     void insertNode(Node* &pRoot, City city, int depth);
-    void deleteTree();
 };
 // Declare any member variables or functions
 
