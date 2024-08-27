@@ -118,7 +118,7 @@ Node* searchNodeUtil(Node* pRoot, City city, int depth)
 // Resolve Search Range's cases:
 
 // bottom_left.longitude < top_right.longitude
-void searchRangeUtil_case1(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+void searchRangeUtil_case1(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth)
 {
     if (!root)
         return;
@@ -146,7 +146,7 @@ void searchRangeUtil_case1(vector<Node*>& res, Node* root, const Point2D& bottom
 }
 
 // bottom_left.longitude >= top_right.longitude
-void searchRangeUtil_case2(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
+void searchRangeUtil_case2(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth)
 {
     if (!root)
         return;

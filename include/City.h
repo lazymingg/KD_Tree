@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <cfloat>
+
 using namespace std;
 
 // Declare any necessary classes or structs
@@ -18,8 +20,8 @@ using namespace std;
 const double PI = 2 * acos(0.0); 
 
 struct Point2D {
-    double latitude;
-    double longitude;
+    float latitude;
+    float longitude;
 };
 
 struct City
@@ -33,7 +35,7 @@ struct City
 };
 
 Point2D inputPoint2D(string PointName);
-double calHaversineDistance(const Point2D& point1, const Point2D& point2);
-float calSumDistance(const Point2D& target, const vector<Point2D> points);
+double calHaversineDistance(Point2D point1, Point2D point2);
+double calSumDistance(Point2D target, vector<Point2D> points);
 
 #endif // CITY_H

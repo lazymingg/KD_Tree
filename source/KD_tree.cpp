@@ -135,8 +135,8 @@ void readFile(Node* &root, string fileName)
         string cityName;
         string cityLat;
         string cityLng;
-        double lat;
-        double lng;
+        float lat;
+        float lng;
 
         getline(ss, cityName, ',');
         getline(ss, cityLat, ',');
@@ -177,7 +177,7 @@ void deleteTree(Node* &root)
 }
 
 // Range Search for KD_Tree
-vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D& top_right)
+vector<Node*> searchRange(Node* root, Point2D bottom_left, Point2D top_right)
 {
     vector<Node*> res;
     if (bottom_left.latitude > top_right.latitude)
@@ -195,9 +195,64 @@ vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D&
 }
 
 // Nearest Neighbor Search
-Node* searchNearestNeighbor(Node* root, vector<Point2D> Point2Ds)
+void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, double& minDistance, int depth)
 {
+    if (!root)
+        return;
 
-    
-    return nullptr;
+    double distance = calHaversineDistance(root->data.location, point);
+    if (distance < minDistance)
+    {
+        minDistance = distance;
+        neareastCity = root;
+    }
+
+    int cd = depth % 2;
+    Node *nextBranch = nullptr, *oppositeBranch = nullptr;
+
+    // Ensure that 2 comparisions each
+    if (cd == 0)
+    {
+        if (root->data.location.latitude > point.latitude)
+        {
+            nextBranch = root->left;
+            oppositeBranch = root->right;
+        }
+        else
+        {
+            nextBranch = root->right;
+            oppositeBranch = root->left;
+        }
+    }
+    else
+    {
+        if (root->data.location.longitude > point.longitude)
+        {
+            nextBranch = root->left;
+            oppositeBranch = root->right;
+        }
+        else
+        {
+            nextBranch = root->right;
+            oppositeBranch = root->left;
+        }    
+    }
+    searchNearestNeighborUtil(nextBranch, point, neareastCity, minDistance, depth + 1);
+
+    //Calculate the distance to the opposite-side plane
+    double DistanceToPlane = (cd == 0) ? calHaversineDistance(point, {root->data.location.latitude, point.longitude})
+                                    : calHaversineDistance(point, {point.latitude, root->data.location.longitude});
+
+    if (DistanceToPlane < minDistance)
+        searchNearestNeighborUtil(oppositeBranch, point, neareastCity, minDistance, depth + 1);
+}
+
+Node* searchNearestNeighbor(Node* root, Point2D point)
+{
+    Node* neareastCity = nullptr;
+    double minDistance = DBL_MAX;
+
+    searchNearestNeighborUtil(root, point, neareastCity, minDistance, 0);
+
+    return neareastCity;
 }
