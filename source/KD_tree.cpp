@@ -195,7 +195,9 @@ vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D&
 }
 
 // Nearest Neighbor Search
-Node* searchNearestNeighbor(Node* root, City city)
+Node* searchNearestNeighbor(Node* root, vector<Point2D> Point2Ds)
 {
+
+    
     return nullptr;
 }

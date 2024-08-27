@@ -7,12 +7,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 // Declare any necessary classes or structs
 // city,lat,lng,country,population
 // essential information including latitude, longitude, and city names
 // from the dataset.
+
+const double PI = 2 * acos(0.0); 
 
 struct Point2D {
     double latitude;
@@ -30,5 +33,7 @@ struct City
 };
 
 Point2D inputPoint2D(string PointName);
+double calHaversineDistance(const Point2D& point1, const Point2D& point2);
+float calSumDistance(const Point2D& target, const vector<Point2D> points);
 
 #endif // CITY_H
