@@ -10,12 +10,6 @@ KD_tree::~KD_tree()
     // Destructor
 }
 
-Node* createNode(City city)
-{
-    Node *newNode = new Node(city, nullptr, nullptr);
-    return newNode;
-}
-
 void insert(Node* &root, City city, int depth)
 {
     if (root == nullptr)
@@ -124,7 +118,7 @@ Node* search(Node* root, City city, int depth)
 void readFile(Node* &root, string fileName)
 {
     fstream fs;
-    string filePath = "data/" + fileName;
+    string filePath = "../data/" + fileName;
     fs.open(filePath, ios::in);
     if (!fs.is_open())
     {
@@ -182,65 +176,7 @@ void deleteTree(Node* &root)
     }
 }
 
-
 // Range Search for KD_Tree
-
-// bottom_left.longitude < top_right.longitude
-void searchRangeUtil_case1(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
-{
-    if (!root)
-        return;
-    
-    if (root->data.location.longitude >= bottom_left.longitude && root->data.location.latitude >= bottom_left.latitude && 
-        root->data.location.longitude <= top_right.longitude && root->data.location.latitude <= top_right.latitude)
-        res.push_back(root);
-
-
-    if (depth % 2 == 0)
-    {
-        if (bottom_left.latitude <= root->data.location.latitude)
-            searchRangeUtil_case1(res, root->left, bottom_left, top_right, depth + 1);
-        if (top_right.latitude >= root->data.location.latitude)
-            searchRangeUtil_case1(res, root->right, bottom_left, top_right, depth + 1);
-    }
-
-    else 
-    {
-        if (bottom_left.longitude <= root->data.location.longitude)
-            searchRangeUtil_case1(res, root->left, bottom_left, top_right, depth + 1);
-        if (top_right.longitude >= root->data.location.longitude)
-            searchRangeUtil_case1(res, root->right, bottom_left, top_right, depth + 1);
-    }
-}
-
-// bottom_left.longitude >= top_right.longitude
-void searchRangeUtil_case2(vector<Node*>& res, Node* root, const Point2D& bottom_left, const Point2D& top_right, int depth)
-{
-    if (!root)
-        return;
-    
-    if (root->data.location.latitude >= bottom_left.latitude && root->data.location.latitude <= top_right.latitude && 
-        (root->data.location.longitude <= top_right.longitude ||  root->data.location.longitude >= bottom_left.longitude))
-        res.push_back(root);
-
-
-    if (depth % 2 == 0)
-    {
-        if (bottom_left.latitude <= root->data.location.latitude)
-            searchRangeUtil_case2(res, root->left, bottom_left, top_right, depth + 1);
-        if (top_right.latitude >= root->data.location.latitude)
-            searchRangeUtil_case2(res, root->right, bottom_left, top_right, depth + 1);
-    }
-
-    else 
-    {
-        //if (bottom_left.longitude <= root->data.location.longitude)
-            searchRangeUtil_case2(res, root->left, bottom_left, top_right, depth + 1);
-        //if (top_right.longitude >= root->data.location.longitude)
-            searchRangeUtil_case2(res, root->right, bottom_left, top_right, depth + 1);
-    }
-}
-
 vector<Node*> searchRange(Node* root, const Point2D& bottom_left, const Point2D& top_right)
 {
     vector<Node*> res;

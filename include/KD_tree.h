@@ -15,8 +15,6 @@ struct KD_tree
     ~KD_tree();
 };
 
-Node* createNode(City city);
-
 void insert(Node* &root, City city, int depth);
 Node* search(Node* root, City city, int depth);
 

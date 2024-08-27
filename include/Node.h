@@ -23,4 +23,6 @@ struct Node
     ~Node();
 };
 
+Node* createNode(City city);
+
 #endif // NODE_H
