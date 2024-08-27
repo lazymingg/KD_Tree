@@ -198,20 +198,6 @@ vector<Node*> searchRange(Node* root, Point2D bottom_left, Point2D top_right)
 
 // Nearest Neighbor Search
 
-double calculateLatitudeDistance(double lat1, double lat2)
-{
-    // Latitude ranging from -90 to 90
-    double diff = fabs(lat1 - lat2);
-    return min(diff, 180.0 - diff);
-}
-
-double calculateLongitudeDistance(double lon1, double lon2)
-{
-    // Longitude ranging from -180 to 180
-    double diff = fabs(lon1 - lon2);
-    return min(diff, 360.0 - diff);
-}
-
 void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, double& minDistance, int depth)
 {
     if (!root)
