@@ -15,6 +15,6 @@ Node* searchNodeUtil(Node* pRoot, City city, int depth);
 
 void searchRangeUtil_case1(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth);
 void searchRangeUtil_case2(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth);
-void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, double& minDistance, int depth);
+void searchNearestNeighborUtil(Node* root, Point2D point, Node*& nearestCity, double& minDistance, int depth);
 
 #endif // UTIL_H

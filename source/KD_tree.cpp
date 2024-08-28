@@ -233,10 +233,10 @@ void deleteTree(Node* &root)
 
 Node* searchNearestNeighbor(Node* root, Point2D point)
 {
-    Node* neareastCity = nullptr;
+    Node* nearestCity = nullptr;
     double minDistance = DBL_MAX;
 
-    searchNearestNeighborUtil(root, point, neareastCity, minDistance, START_DEPTH);
+    searchNearestNeighborUtil(root, point, nearestCity, minDistance, START_DEPTH);
 
-    return neareastCity;
+    return nearestCity;
 }

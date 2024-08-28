@@ -1,0 +1,116 @@
+Duy Khanh Huynh
+void NearestSearch(KD_Tree* root, City city, double& MinDistance, City& BestCity, int depth){
+    if (root == NULL){
+        return;
+    }
+
+    double dist = distance(root->city, city);
+    if (dist < MinDistance && city.name != root->city.name) {
+        MinDistance = dist;
+        BestCity = root->city;
+    }
+
+    int condition = depth % 2;
+    KD_Tree* nextBranch = NULL;
+    KD_Tree* oppositeBranch = NULL;
+
+    if (condition == 0){
+        if (city.lat < root->city.lat){
+            nextBranch = root->pLeft;
+            oppositeBranch = root->pRight;
+        }
+        else{
+            nextBranch = root->pRight;
+            oppositeBranch = root->pLeft;
+        }
+    }
+    else{
+        if (city.lng < root->city.lng){
+            nextBranch = root->pLeft;
+            oppositeBranch = root->pRight;
+        }
+        else{
+            nextBranch = root->pRight;
+            oppositeBranch = root->pLeft;
+        }
+    }
+
+    NearestSearch(nextBranch, city, MinDistance, BestCity, depth + 1);
+
+    double temp;
+    if (condition == 0){
+        temp = fabs(city.lat - root->city.lat);
+    }
+    else{
+        temp = fabs(city.lng - root->city.lng);
+    }
+    if (temp < MinDistance) {
+        NearestSearch(oppositeBranch, city, MinDistance, BestCity, depth);
+    }
+}  
+
+
+
+/*
+    if (cd == 0) // latitude division
+    {
+        // In bound
+        if (fabs(point.latitude - root->data.location.latitude) <= 90)
+        {
+            if (root->data.location.latitude > point.latitude)
+            {
+                nextBranch = root->left;
+                oppositeBranch = root->right;
+            }
+            else
+            {
+                nextBranch = root->right;
+                oppositeBranch = root->left;
+            }
+        }
+        else // Cross bound
+        {
+            if (root->data.location.latitude > point.latitude)
+            {
+                nextBranch = root->right;
+                oppositeBranch = root->left;
+            }
+            else
+            {
+                nextBranch = root->left;
+                oppositeBranch = root->right;
+            }
+        }
+
+    }
+    else // longitude division
+    {
+        // In bound
+        if (fabs(point.longitude - root->data.location.longitude) <= 180)
+        {
+            if (root->data.location.longitude > point.longitude)
+            {
+                nextBranch = root->left;
+                oppositeBranch = root->right;
+            }
+            else
+            {
+                nextBranch = root->right;
+                oppositeBranch = root->left;
+            }
+        }
+        else // Cross bound
+        {
+            if (root->data.location.longitude > point.longitude)
+            {
+                nextBranch = root->right;
+                oppositeBranch = root->left;
+            }
+            else
+            {
+                nextBranch = root->left;
+                oppositeBranch = root->right;
+            }
+        }   
+    }
+*/
