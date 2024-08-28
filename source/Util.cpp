@@ -204,14 +204,72 @@ void searchNearestNeighborUtil(Node* root, Point2D point, Node*& nearestCity, do
         nearestCity = root;
     }
 
-    cout << root->data.cityName << " - " << distance << endl;
-
     int cd = depth % 2;
+    Node* next = nullptr;
+    Node* other = nullptr;
+
+    if (cd == 0) // latitude division
+    {
+        // In bound
+        if (fabs(point.latitude - root->data.location.latitude) <= 90)
+        {
+            if (root->data.location.latitude > point.latitude)
+            {
+                next = root->left;
+                other = root->right;
+            }
+            else
+            {
+                next = root->right;
+                other = root->left;
+            }
+        }
+        else // Cross bound
+        {
+            if (root->data.location.latitude > point.latitude)
+            {
+                next = root->right;
+                other = root->left;
+            }
+            else
+            {
+                next= root->left;
+                other = root->right;
+            }
+        }
+
+    }
+    else // longitude division
+    {
+        // In bound
+        if (fabs(point.longitude - root->data.location.longitude) <= 180)
+        {
+            if (root->data.location.longitude > point.longitude)
+            {
+                next = root->left;
+                other = root->right;
+            }
+            else
+            {
+                next = root->right;
+                other = root->left;
+            }
+        }
+        else // Cross bound
+        {
+            if (root->data.location.longitude > point.longitude)
+            {
+                next = root->right;
+                other = root->left;
+            }
+            else
+            {
+                next = root->left;
+                other = root->right;
+            }
+        }   
+    }
     
-    Node* next = ((cd == 0 && point.latitude < root->data.location.latitude)
-                || (cd == 1 && point.longitude < root->data.location.longitude))
-                ? root->left : root->right;
-    Node* other = (next == root->left) ? root->right : root->left;
     searchNearestNeighborUtil(next, point, nearestCity, minDistance, depth + 1);
 
     //Calculate the distance to the opposite-side plane

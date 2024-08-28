@@ -306,7 +306,7 @@ void modeNearestNeighborSearch(KD_tree &Tree)
         if (outputMode == 1)
         {
             cout << "The nearest city is: " << neareastCity->data.cityName << endl;
-            cout << "Latitude: " << neareastCity->data.location.latitude <<" " << "Longitude: " << neareastCity->data.location.longitude << endl; 
+            cout << "Latitude: " << neareastCity->data.location.latitude <<" " << "Longitude: " << neareastCity->data.location.longitude << "\n\n"; 
         }
         else if (outputMode == 2)
         {

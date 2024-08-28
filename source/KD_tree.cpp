@@ -233,5 +233,7 @@ Node* searchNearestNeighbor(Node* root, Point2D point)
 
     searchNearestNeighborUtil(root, point, nearestCity, minDistance, START_DEPTH);
 
+    if (!nearestCity)
+        cout << "No nearest city to (" << point.latitude << ',' << point.longitude << ")\n";
     return nearestCity;
 }
