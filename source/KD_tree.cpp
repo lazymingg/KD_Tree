@@ -5,11 +5,6 @@ KD_tree::KD_tree()
     root = nullptr;
 }
 
-KD_tree::~KD_tree()
-{
-    deleteTree(root);
-}
-
 bool insert(Node* &root, City city, int depth)
 {
     if (city.location.latitude == 90 || city.location.latitude == -90)

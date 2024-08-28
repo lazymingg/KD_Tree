@@ -8,6 +8,8 @@ void showMenu()
     cout << "3: Insert multiple new cities into the KD-Tree from a CSV file" << endl;
     cout << "4: Nearest neighbor search with set of latitude and longitude coordinates" << endl;
     cout << "5: Query all cities within a rectanglar region defined by its geographical boundaries" << endl;
+    cout << "6: Serialize the current KD Tree to a binary file" << endl;
+    cout << "7: Load a KD Tree from a binary file (Warnings: All contents of the current tree will be lost)" << endl;
     cout << "0: Exit" << endl;
     cout << endl;
 }
@@ -99,6 +101,14 @@ void interfaceMenu(KD_tree &Tree, int mode)
 
         case 5:
             modeRangeSearch(Tree);
+            break;
+
+        case 6:
+            modeSerialize(Tree);
+            break;
+
+        case 7:
+            modeDeserialize(Tree);
             break;
     }
 }
@@ -436,4 +446,23 @@ void modeRangeSearch(KD_tree &Tree)
         outputRangeSearchCSV(res, resSize);
         outputRangeSearchConsole(res, resSize);
     }
+}
+
+void modeSerialize(KD_tree &Tree)
+{
+    string filePath;
+
+    cout << "Input the absolute filepath: ";
+    getline(cin, filePath);
+    serializeKDTree(filePath, Tree.root);
+}
+
+void modeDeserialize(KD_tree &Tree)
+{
+    string filePath;
+
+    cout << "Input the absolute filepath: ";
+    getline(cin, filePath);
+    deleteTree(Tree.root);
+    Tree = deserializeKDTree(filePath);
 }

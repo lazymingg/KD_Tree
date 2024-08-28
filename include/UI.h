@@ -1,6 +1,7 @@
 #ifndef UI_H
 #define UI_H
 #include "KD_tree.h"
+#include "Serialize.h"
 #include <cstring>
 
 using namespace std;
@@ -18,6 +19,8 @@ void modeInsertNewCity(KD_tree &Tree);
 void modeInsertMultiNewCity(KD_tree &Tree);
 void modeNearestNeighborSearch(KD_tree &Tree);
 void modeRangeSearch(KD_tree &Tree);
+void modeSerialize(KD_tree &Tree);
+void modeDeserialize(KD_tree &Tree);
 
 void outputRangeSearchConsole(vector<Node*> res, int resSize);
 void outputRangeSearchCSV(vector<Node*> res, int resSize);

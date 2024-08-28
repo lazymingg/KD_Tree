@@ -13,7 +13,7 @@ int main()
             cout << "Closing program..." << endl;
             break;
         }
-        else if (mode < 1 || mode > 5)
+        else if (mode < 1 || mode > 7)
         {
             cout << "Invalid mode!!!" << endl;
         }
@@ -23,5 +23,6 @@ int main()
         }
     }
 
+    deleteTree(Tree.root);
     return 0;
 }

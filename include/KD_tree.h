@@ -11,7 +11,6 @@ struct KD_tree
 {
     Node* root;
     KD_tree();
-    ~KD_tree();
 };
 
 bool insert(Node* &root, City city, int depth);
