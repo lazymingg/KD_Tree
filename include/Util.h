@@ -2,6 +2,7 @@
 #define UTIL_H
 #include "Node.h"
 #include <vector>
+#include <algorithm>
 
 const int START_DEPTH = 1;
 

@@ -53,15 +53,3 @@ double calHaversineDistance(Point2D point1, Point2D point2)
 
     return R * c;
 }
-
-
-double calSumDistance(Point2D target, vector<Point2D> points)
-{
-    double sum = 0;
-    int size = points.size();
-
-    for (Point2D point : points)
-        sum += calHaversineDistance(target, point);
-
-    return sum;
-}

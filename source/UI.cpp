@@ -209,7 +209,7 @@ void modeInsertNewCity(KD_tree &Tree)
         }
     }
 
-    if (insert(Tree.root, getCity, 0))
+    if (insert(Tree.root, getCity, START_DEPTH))
     {
         cout << "City \"" << getCity.cityName << "\" has been inserted" << endl;
     }
@@ -225,7 +225,7 @@ void modeInsertMultiNewCity(KD_tree &Tree)
 
     for (int i = 0; i < listSize; i++)
     {
-        if (insert(Tree.root, cityList[i], 0))
+        if (insert(Tree.root, cityList[i], START_DEPTH))
         {
             cnt++;
         }

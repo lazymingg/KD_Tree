@@ -204,45 +204,21 @@ void searchNearestNeighborUtil(Node* root, Point2D point, Node*& nearestCity, do
         nearestCity = root;
     }
 
-    int cd = depth % 2;
-    Node *nextBranch = nullptr, *oppositeBranch = nullptr;
-    
-    if (cd == 0) // Latitude division
-    {
-        if (point.latitude < root->data.location.latitude)
-        {
-            nextBranch = root->left;
-            oppositeBranch = root->right;
-        }
-        else
-        {
-            nextBranch = root->right;
-            oppositeBranch = root->left;
-        }
-    }
-    else // Longitude division
-    {
-        if (point.longitude < root->data.location.longitude)
-        {
-            nextBranch = root->left;
-            oppositeBranch = root->right;
-        }
-        else
-        {
-            nextBranch = root->right;
-            oppositeBranch = root->left;
-        }
-    }
+    cout << root->data.cityName << " - " << distance << endl;
 
-    cout << distance << endl;
-    searchNearestNeighborUtil(nextBranch, point, nearestCity, minDistance, depth + 1);
+    int cd = depth % 2;
+    
+    Node* next = ((cd == 0 && point.latitude < root->data.location.latitude)
+                || (cd == 1 && point.longitude < root->data.location.longitude))
+                ? root->left : root->right;
+    Node* other = (next == root->left) ? root->right : root->left;
+    searchNearestNeighborUtil(next, point, nearestCity, minDistance, depth + 1);
 
     //Calculate the distance to the opposite-side plane
-    double DistanceToPlane = (cd == 0)
+    double PlaneDistance = (cd == 0)
         ? calHaversineDistance(point, {root->data.location.latitude, point.longitude})
         : calHaversineDistance(point, {point.latitude, root->data.location.longitude});
 
-    cout << DistanceToPlane << " - " << minDistance << endl;
-    if (DistanceToPlane < minDistance)
-        searchNearestNeighborUtil(oppositeBranch, point, nearestCity, minDistance, depth + 1);
+    if (PlaneDistance < minDistance)
+        searchNearestNeighborUtil(other, point, nearestCity, minDistance, depth + 1);
 }
