@@ -14,10 +14,12 @@ City::City(string name, Point2D location)
     this->location.longitude = location.longitude;
 }
 
+// Haversine formula
 double calHaversineDistance(Point2D point1, Point2D point2)
 {
-    const double R = 6371; // (km)
+    const double R = 6371; // (Earth's radius - km)
 
+    // Convert latitudes and longitudes to radient
     double lat1 = point1.latitude * PI / 180.0;
     double lon1 = point1.longitude * PI / 180.0;
     double lat2 = point2.latitude * PI / 180.0;
