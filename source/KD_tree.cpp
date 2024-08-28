@@ -217,7 +217,7 @@ void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, d
     if (cd == 0) // latitude division
     {
         // In bound
-        if (fabs(point.latitude - root->data.location.latitude) < 90)
+        if (fabs(point.latitude - root->data.location.latitude) <= 90)
         {
             if (root->data.location.latitude > point.latitude)
             {
@@ -248,7 +248,7 @@ void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, d
     else // longitude division
     {
         // In bound
-        if (fabs(point.longitude - root->data.location.longitude) < 90)
+        if (fabs(point.longitude - root->data.location.longitude) <= 180)
         {
             if (root->data.location.longitude > point.longitude)
             {

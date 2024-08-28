@@ -6,7 +6,7 @@ void showMenu()
     cout << "1: Load the list of cities from a CSV file" << endl;
     cout << "2: Insert a new city into the KD-Tree" << endl;
     cout << "3: Insert multiple new cities into the KD-Tree from a CSV file" << endl;
-    cout << "4: Neighbor search with set of latitude and longitude coordinates" << endl;
+    cout << "4: Nearest neighbor search with set of latitude and longitude coordinates" << endl;
     cout << "5: Query all cities within a rectanglar region defined by its geographical boundaries" << endl;
     cout << "0: Exit" << endl;
     cout << endl;
