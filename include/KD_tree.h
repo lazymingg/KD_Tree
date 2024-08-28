@@ -7,7 +7,6 @@
 using namespace std;
 // Include any necessary libraries or headers
 
-
 struct KD_tree
 {
     Node* root;

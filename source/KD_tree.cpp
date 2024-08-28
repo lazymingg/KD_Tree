@@ -179,119 +179,12 @@ void deleteTree(Node* &root)
 
 // Range Search for KD_Tree
 
-
-vector<Node*> searchRange(Node* root, Point2D bottom_left, Point2D top_right)
-{
-    vector<Node*> res;
-    if (bottom_left.latitude > top_right.latitude)
-    {
-        cout << "Bottom-left point's latitude must be less than top-right point's latitude!\n";
-        return res;
-    }
-
-    if (bottom_left.longitude < top_right.longitude)
-        searchRangeUtil_case1(res, root, bottom_left, top_right, 0);
-    else
-        searchRangeUtil_case2(res, root, bottom_left, top_right, 0);
-    
-    return res;
-}
-
-// Nearest Neighbor Search
-
-void searchNearestNeighborUtil(Node* root, Point2D point, Node*& neareastCity, double& minDistance, int depth)
-{
-    if (!root)
-        return;
-
-    double distance = calHaversineDistance(root->data.location, point);
-    if (distance < minDistance)
-    {
-        minDistance = distance;
-        neareastCity = root;
-    }
-
-    int cd = depth % 2;
-    Node *nextBranch = nullptr, *oppositeBranch = nullptr;
-
-    if (cd == 0) // latitude division
-    {
-        // In bound
-        if (fabs(point.latitude - root->data.location.latitude) <= 90)
-        {
-            if (root->data.location.latitude > point.latitude)
-            {
-                nextBranch = root->left;
-                oppositeBranch = root->right;
-            }
-            else
-            {
-                nextBranch = root->right;
-                oppositeBranch = root->left;
-            }
-        }
-        else // Cross bound
-        {
-            if (root->data.location.latitude > point.latitude)
-            {
-                nextBranch = root->right;
-                oppositeBranch = root->left;
-            }
-            else
-            {
-                nextBranch = root->left;
-                oppositeBranch = root->right;
-            }
-        }
-
-    }
-    else // longitude division
-    {
-        // In bound
-        if (fabs(point.longitude - root->data.location.longitude) <= 180)
-        {
-            if (root->data.location.longitude > point.longitude)
-            {
-                nextBranch = root->left;
-                oppositeBranch = root->right;
-            }
-            else
-            {
-                nextBranch = root->right;
-                oppositeBranch = root->left;
-            }
-        }
-        else // Cross bound
-        {
-            if (root->data.location.longitude > point.longitude)
-            {
-                nextBranch = root->right;
-                oppositeBranch = root->left;
-            }
-            else
-            {
-                nextBranch = root->left;
-                oppositeBranch = root->right;
-            }
-        }   
-    }
-    searchNearestNeighborUtil(nextBranch, point, neareastCity, minDistance, depth + 1);
-
-    //Calculate the distance to the opposite-side plane
-    double DistanceToPlane = (cd == 0)
-        ? calHaversineDistance(point, {root->data.location.latitude, point.longitude})
-        : calHaversineDistance(point, {point.latitude, root->data.location.longitude});
-
-    if (DistanceToPlane < minDistance)
-        searchNearestNeighborUtil(oppositeBranch, point, neareastCity, minDistance, depth + 1);
-}
-
 Node* searchNearestNeighbor(Node* root, Point2D point)
 {
     Node* neareastCity = nullptr;
     double minDistance = DBL_MAX;
 
-    searchNearestNeighborUtil(root, point, neareastCity, minDistance, 0);
+    searchNearestNeighborUtil(root, point, neareastCity, minDistance, START_DEPTH);
 
     return neareastCity;
 }
