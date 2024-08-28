@@ -115,15 +115,15 @@ Node* search(Node* root, City city, int depth)
     }
 }
 
-void readFile(Node* &root, string fileName)
+vector<City> readFile(string filePath)
 {
     fstream fs;
-    string filePath = "../data/" + fileName;
+    vector<City> listCity;
     fs.open(filePath, ios::in);
     if (!fs.is_open())
     {
         cout << "Cannot open file!" << endl;
-        return;
+        return listCity;
     }
     
     string title;
@@ -135,8 +135,8 @@ void readFile(Node* &root, string fileName)
         string cityName;
         string cityLat;
         string cityLng;
-        float lat;
-        float lng;
+        double lat;
+        double lng;
 
         getline(ss, cityName, ',');
         getline(ss, cityLat, ',');
@@ -161,9 +161,10 @@ void readFile(Node* &root, string fileName)
         }
 
         City getCity(cityName, {lat, lng});
-        insert(root, getCity, 0);
+        listCity.push_back(getCity);
     }
     fs.close();
+    return listCity;
 }
 
 void deleteTree(Node* &root)

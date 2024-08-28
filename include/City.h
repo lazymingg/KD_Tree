@@ -20,8 +20,8 @@ using namespace std;
 const double PI = 2 * acos(0.0); 
 
 struct Point2D {
-    float latitude;
-    float longitude;
+    double latitude;
+    double longitude;
 };
 
 struct City

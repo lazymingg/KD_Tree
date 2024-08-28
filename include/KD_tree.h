@@ -23,7 +23,7 @@ void inOrder(Node* root);
 void postOrder(Node* root);
 
 void deleteTree(Node* &root);
-void readFile(Node* &root, string fileName);
+vector<City> readFile(string filePath);
 vector<Node*> searchRange(Node* root, Point2D bottom_left, Point2D top_right);
 Node* searchNearestNeighbor(Node* root, Point2D point);
 
