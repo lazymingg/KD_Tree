@@ -10,6 +10,7 @@ int main()
         int mode = handleMode();
         if (mode == 0)
         {
+            cout << "Closing program..." << endl;
             break;
         }
         else if (mode < 1 || mode > 5)

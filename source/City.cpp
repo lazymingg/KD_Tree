@@ -14,11 +14,6 @@ City::City(string name, Point2D location)
     this->location.longitude = location.longitude;
 }
 
-City::~City()
-{
-    // Destructor
-}
-
 Point2D inputPoint2D(string PointName)
 {
     Point2D point;

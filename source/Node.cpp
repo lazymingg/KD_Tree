@@ -6,11 +6,6 @@ Node::Node()
     right = nullptr;
 }
 
-Node::~Node()
-{
-    // Destructor
-}
-
 Node::Node(City city, Node *left, Node *right)
 {
     this->data = city;

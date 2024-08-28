@@ -7,7 +7,7 @@ KD_tree::KD_tree()
 
 KD_tree::~KD_tree()
 {
-    // Destructor
+    deleteTree(root);
 }
 
 bool insert(Node* &root, City city, int depth)
