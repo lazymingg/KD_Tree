@@ -21,17 +21,20 @@ void serializeKDTreeNode(fstream &fs, Node* node)
     }
     
     int cityNameLen = node->data.cityName.length();
-    // Node's data
+    // Writing node's data
     fs.write((char*)(&cityNameLen), sizeof(int));
     fs.write(node->data.cityName.c_str(), cityNameLen);
     fs.write((char*)(&node->data.location), sizeof(Point2D));
 
     // Placeholder for left and right child positions
-    // -1 is for no child
+    // -1 is for NULL at left or right node
+
+    // Getting leftPos to add data later if existed
     streampos leftPos = fs.tellp();
     streamoff leftOffset = -1;
     fs.write((char*)(&leftOffset), sizeof(leftOffset));
 
+    // Getting rightPos to add data later if existed
     streampos rightPos = fs.tellp();
     streamoff rightOffset = -1;
     fs.write((char*)(&rightOffset), sizeof(rightOffset));
@@ -41,6 +44,7 @@ void serializeKDTreeNode(fstream &fs, Node* node)
     {
         fs.seekp(leftPos);
         leftOffset = currentPos;
+        // Changing value to notice there exist a left node
         fs.write((char*)(&leftOffset), sizeof(leftOffset));
         fs.seekp(currentPos);
         serializeKDTreeNode(fs, node->left);
@@ -50,6 +54,7 @@ void serializeKDTreeNode(fstream &fs, Node* node)
     if (node->right) {
         fs.seekp(rightPos);
         rightOffset = currentPos;
+        // Changing value to notice there exist a right node
         fs.write((char*)(&rightOffset), sizeof(rightOffset));
         fs.seekp(currentPos);
         serializeKDTreeNode(fs, node->right);
@@ -64,14 +69,17 @@ Node* deserializeKDTreeNode(fstream &fs)
     }
 
     int cityNameLen;
+    // Reading city's name length
     fs.read((char*)(&cityNameLen), sizeof(int));
     
+    // Reading city's name
     string cityName(cityNameLen, '\0');
     fs.read(&cityName[0], cityNameLen);
 
     Point2D location;
     fs.read((char*)(&location), sizeof(Point2D));
 
+    // Getting notice of the existence of a left node or right node, -1 is for NULL
     streamoff leftOffset, rightOffset;
     fs.read((char*)(&leftOffset), sizeof(leftOffset));
     fs.read((char*)(&rightOffset), sizeof(rightOffset));

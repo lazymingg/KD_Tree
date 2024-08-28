@@ -2,6 +2,7 @@
 
 void showMenu()
 {
+    // Just the menu of the CLI
     cout << "-----------------------------MENU-----------------------------" << endl;
     cout << "1: Load the list of cities from a CSV file" << endl;
     cout << "2: Insert a new city into the KD-Tree" << endl;
@@ -16,6 +17,7 @@ void showMenu()
 
 int handleMode()
 {
+    // Function used get the mode's number, ensuring that a number will be return
     cout << "Please enter a mode: ";
     string modeLine;
     getline(cin, modeLine);
@@ -37,11 +39,14 @@ int handleMode()
 
 int handleOutputMode()
 {   
+    // Getting the output mode, depending on the user answer
+    // 0 = Display none, 1 = Display to console ONLY, 2 = Write to CSV file ONLY, 3 = Display to console and write to CSV
     int mode = 0;
     string ans1;
     cout << "Do you want to output results to the console? (Y/N)" << endl;
     while (true)
     {
+        // Ensuring a correct answer has to be input to continue
         cout << "Your answer: ";
         getline(cin, ans1);
         if (ans1 == "Y" || ans1 == "y")
@@ -60,6 +65,7 @@ int handleOutputMode()
     cout << "Do you want to output results to a CSV file? (Y/N)" << endl;
     while (true)
     {
+        // Ensuring a correct answer has to be input to continue
         cout << "Your answer: ";
         getline(cin, ans2);
         if (ans2 == "Y" || ans2 == "y")
@@ -78,8 +84,10 @@ int handleOutputMode()
 
 void interfaceMenu(KD_tree &Tree, int mode)
 {   
+    // Getting the mode number and switch to the corresponding function for that mode
     vector<City> cityList;
 
+    // All the mode depending on the mode variable
     switch (mode)
     {
         case 1:
@@ -115,6 +123,8 @@ void interfaceMenu(KD_tree &Tree, int mode)
 
 vector<City> modeLoadCity()
 {
+    // Mode 1: Load city from a CSV file
+
     string filePath;
 
     cout << "Input the absolute filepath: ";
@@ -125,6 +135,7 @@ vector<City> modeLoadCity()
 
 bool handleStringToDouble(string s, double &val)
 {
+    // Ensuring the input string has to be a number that can be turned into datatype double
     if (s == "" || ((s[0] < '0' || s[0] > '9') && s[0] != '-'))
     {
         cout << "Please enter a valid number!" << endl;
@@ -152,6 +163,7 @@ bool handleStringToDouble(string s, double &val)
 
 bool handleStringToInt(string s, int &val)
 {
+    // Ensuring the input string has to be a number that can be turned into datatype int
     if (s == "" || s[0] < '0' || s[0] > '9')
     {
         cout << "Please enter a valid number!" << endl;
@@ -172,6 +184,7 @@ bool handleStringToInt(string s, int &val)
 
 void modeInsertNewCity(KD_tree &Tree)
 {
+    // Mode 2: Insert a new city
     City getCity;
 
     cout << "Insert the city name: ";
@@ -179,6 +192,7 @@ void modeInsertNewCity(KD_tree &Tree)
 
     while (true)
     {
+        // Ensuring a correct lattitude will be inputted
         cout << "Insert the latitude of the city: ";
         string latitude;
         getline(cin, latitude);
@@ -195,6 +209,7 @@ void modeInsertNewCity(KD_tree &Tree)
 
     while (true)
     {
+        // Ensuring a correct longitude will be inputted
         cout << "Insert the longitude of the city: ";
         string longitude;
         getline(cin, longitude);
@@ -217,9 +232,9 @@ void modeInsertNewCity(KD_tree &Tree)
 
 void modeInsertMultiNewCity(KD_tree &Tree)
 {
+    // Mode 3: Inserting multiple cities from a CSV file
     vector<City> cityList = modeLoadCity();
 
-    // Could be using median ??? (TRI part)
     int listSize = cityList.size();
     int cnt = 0;
 
@@ -235,9 +250,11 @@ void modeInsertMultiNewCity(KD_tree &Tree)
 
 void modeNearestNeighborSearch(KD_tree &Tree)
 {
+    // Mode 4: Getting the nearest neighbor
     int numPoint;
     while (true)
     {
+        // Ensuring a correct number will be inputted
         cout << "Insert the number of coordinates needed to find the nearest neighbor: ";
         string numPointS;
         getline(cin, numPointS);
@@ -253,6 +270,7 @@ void modeNearestNeighborSearch(KD_tree &Tree)
 
     if (outputMode == 2 || outputMode == 3)
     {
+        // Opening CSV file to input depend on mode
         cout << "Input the absolute filepath: ";
         getline(cin, filePath);
         fs.open(filePath, ios::out);
@@ -327,6 +345,7 @@ void modeNearestNeighborSearch(KD_tree &Tree)
 
 void outputRangeSearchConsole(vector<Node*> res, int resSize)
 {
+    // Output console for Range search
     cout << endl << "All cities within the boundaries are: " << endl;
 
     for (int i = 0; i < resSize; i++)
@@ -338,6 +357,7 @@ void outputRangeSearchConsole(vector<Node*> res, int resSize)
 
 void outputRangeSearchCSV(vector<Node*> res, int resSize)
 {
+    // Output CSV file for Range search
     string filePath;
 
     cout << "Input the absolute filepath: ";
@@ -360,11 +380,13 @@ void outputRangeSearchCSV(vector<Node*> res, int resSize)
 
 void modeRangeSearch(KD_tree &Tree)
 {
+    // Mode 5: Getting all the city within a rectangular area
     Point2D bottom_left;
     Point2D top_right;
 
     while (true)
     {
+        // Ensuring a correct latitude will be inputted
         cout << "Insert the latitude of the bottom left coordinate of the rectangle: ";
         string latitude;
         getline(cin, latitude);
@@ -381,6 +403,7 @@ void modeRangeSearch(KD_tree &Tree)
 
     while (true)
     {
+        // Ensuring a correct longitude will be inputted
         cout << "Insert the longitude of the bottom left coordinate of the rectangle: ";
         string longitude;
         getline(cin, longitude);
@@ -397,6 +420,7 @@ void modeRangeSearch(KD_tree &Tree)
 
     while (true)
     {
+        // Ensuring a correct latitude will be inputted
         cout << "Insert the latitude of the top right coordinate of the rectangle: ";
         string latitude;
         getline(cin, latitude);
@@ -413,6 +437,7 @@ void modeRangeSearch(KD_tree &Tree)
 
     while (true)
     {
+        // Ensuring a correct longitude will be inputted
         cout << "Insert the longitude of the top right coordinate of the rectangle: ";
         string longitude;
         getline(cin, longitude);
@@ -433,6 +458,7 @@ void modeRangeSearch(KD_tree &Tree)
     int outputMode = handleOutputMode();
     // 0 = None, 1 = only console, 2 = only CSV, 3 = both
     
+    // Switching output mode
     if (outputMode == 1)
     {
         outputRangeSearchConsole(res, resSize);
@@ -450,6 +476,7 @@ void modeRangeSearch(KD_tree &Tree)
 
 void modeSerialize(KD_tree &Tree)
 {
+    // Mode 6: Serialize the current KD tree
     string filePath;
 
     cout << "Input the absolute filepath: ";
@@ -459,6 +486,7 @@ void modeSerialize(KD_tree &Tree)
 
 void modeDeserialize(KD_tree &Tree)
 {
+    // Mode 7: Deserialize a KD tree from a binary file
     string filePath;
 
     cout << "Input the absolute filepath: ";

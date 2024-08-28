@@ -6,14 +6,6 @@
 
 const int START_DEPTH = 1;
 
-// void insertUtil(Node* &pRoot, City city, int depth = 0);
-// void preOrderUtil(Node *root);
-// void inOrderUtil(Node *root);
-// void postOrderUtil(Node *root);
-// void deleteTreeUtil(Node *root);
-// void deleteNodeUtil(Node *root, City city);
-Node* searchNodeUtil(Node* pRoot, City city, int depth);
-
 void searchRangeUtil_case1(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth);
 void searchRangeUtil_case2(vector<Node*>& res, Node* root, Point2D bottom_left, Point2D top_right, int depth);
 void searchNearestNeighborUtil(Node* root, Point2D point, Node*& nearestCity, double& minDistance, int depth);

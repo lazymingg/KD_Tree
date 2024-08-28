@@ -14,13 +14,8 @@ struct KD_tree
 };
 
 bool insert(Node* &root, City city, int depth);
-Node* search(Node* root, City city, int depth);
-
-void preOrder(Node* root);
-void inOrder(Node* root);
-void postOrder(Node* root);
-
 void deleteTree(Node* &root);
+
 vector<City> readFile(string filePath);
 vector<Node*> searchRange(Node* root, Point2D bottom_left, Point2D top_right);
 Node* searchNearestNeighbor(Node* root, Point2D point);

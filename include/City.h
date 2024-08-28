@@ -33,8 +33,6 @@ struct City
     City(string name, Point2D location);
 };
 
-Point2D inputPoint2D(string PointName);
 double calHaversineDistance(Point2D point1, Point2D point2);
-double calSumDistance(Point2D target, vector<Point2D> points);
 
 #endif // CITY_H
