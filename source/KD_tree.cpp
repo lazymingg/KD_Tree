@@ -10,11 +10,25 @@ KD_tree::~KD_tree()
     // Destructor
 }
 
-void insert(Node* &root, City city, int depth)
+bool insert(Node* &root, City city, int depth)
 {
+    if (city.location.latitude == 90 || city.location.latitude == -90)
+    {
+        // To ensure one point only existed once in a map
+        city.location.longitude = 0;
+    }
+
+    if (city.location.longitude == 180)
+    {
+        // To ensure one point only existed once in a map
+        // -180 because if the longitude is equal to some, it will mostly be inserted to the right
+        city.location.longitude = -180;
+    }
+
     if (root == nullptr)
     {
         root = createNode(city);
+        return true;
     }
     else
     {
@@ -23,22 +37,60 @@ void insert(Node* &root, City city, int depth)
         {
             if (city.location.latitude < root->data.location.latitude)
             {
-                insert(root->left, city, depth + 1);
+                if (insert(root->left, city, depth + 1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (city.location.latitude == root->data.location.latitude && city.location.longitude == root->data.location.longitude)
+            {
+                cout << "Location has existed, cannot insert \"" << city.cityName << "\"" << endl;
+                return false;
             }
             else
             {
-                insert(root->right, city, depth + 1);
+                if (insert(root->right, city, depth + 1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else
         {
             if (city.location.longitude < root->data.location.longitude)
             {
-                insert(root->left, city, depth + 1);
+                if (insert(root->left, city, depth + 1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (city.location.longitude == root->data.location.longitude && city.location.latitude == root->data.location.latitude)
+            {
+                cout << "Location has existed, cannot insert \"" << city.cityName << "\"" << endl;
+                return false;
             }
             else
             {
-                insert(root->right, city, depth + 1);
+                if (insert(root->right, city, depth + 1))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

@@ -14,7 +14,7 @@ struct KD_tree
     ~KD_tree();
 };
 
-void insert(Node* &root, City city, int depth);
+bool insert(Node* &root, City city, int depth);
 Node* search(Node* root, City city, int depth);
 
 void preOrder(Node* root);

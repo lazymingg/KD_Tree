@@ -199,8 +199,10 @@ void modeInsertNewCity(KD_tree &Tree)
         }
     }
 
-    insert(Tree.root, getCity, 0);
-    cout << "City \"" << getCity.cityName << "\" has been inserted" << endl;
+    if (insert(Tree.root, getCity, 0))
+    {
+        cout << "City \"" << getCity.cityName << "\" has been inserted" << endl;
+    }
 }
 
 void modeInsertMultiNewCity(KD_tree &Tree)
@@ -209,11 +211,16 @@ void modeInsertMultiNewCity(KD_tree &Tree)
 
     // Could be using median ??? (TRI part)
     int listSize = cityList.size();
+    int cnt = 0;
+
     for (int i = 0; i < listSize; i++)
     {
-        insert(Tree.root, cityList[i], 0);
+        if (insert(Tree.root, cityList[i], 0))
+        {
+            cnt++;
+        }
     }
-    cout << "Inserted total of " << listSize << " cities" << endl;
+    cout << "Inserted total of " << cnt << " cities" << endl;
 }
 
 void modeNearestNeighborSearch(KD_tree &Tree)
