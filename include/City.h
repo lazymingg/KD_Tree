@@ -31,7 +31,6 @@ struct City
     
     City();
     City(string name, Point2D location);
-    ~City();
 };
 
 Point2D inputPoint2D(string PointName);

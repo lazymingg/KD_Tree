@@ -20,7 +20,6 @@ struct Node
 
     Node();
     Node(City city, Node *left, Node *right);
-    ~Node();
 };
 
 Node* createNode(City city);

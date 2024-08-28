@@ -44,7 +44,7 @@ int handleOutputMode()
         getline(cin, ans1);
         if (ans1 == "Y" || ans1 == "y")
         {
-            mode++;
+            mode += 1;
             break;
         }
         else if (ans1 == "N" || ans1 == "n")
@@ -62,7 +62,7 @@ int handleOutputMode()
         getline(cin, ans2);
         if (ans2 == "Y" || ans2 == "y")
         {
-            mode++;
+            mode += 2;
             break;
         }
         else if (ans2 == "N" || ans2 == "n")
@@ -245,7 +245,7 @@ void modeNearestNeighborSearch(KD_tree &Tree)
     {
         cout << "Input the absolute filepath: ";
         getline(cin, filePath);
-        fs.open(filePath, ios::in);
+        fs.open(filePath, ios::out);
         if (!fs.is_open())
         {
             cout << "Cannot open file!" << endl;
@@ -334,7 +334,7 @@ void outputRangeSearchCSV(vector<Node*> res, int resSize)
     getline(cin, filePath);
     
     fstream fs;
-    fs.open(filePath, ios::in);
+    fs.open(filePath, ios::out);
     if (!fs.is_open())
     {
         cout << "Cannot open file!" << endl;
@@ -343,7 +343,7 @@ void outputRangeSearchCSV(vector<Node*> res, int resSize)
     fs << "City,Latitude,Longitude" << endl;
     for (int i = 0; i < resSize; i++)
     {
-        cout << res[i]->data.cityName << "," << res[i]->data.location.latitude << "," << res[i]->data.location.longitude << endl;
+        fs << res[i]->data.cityName << "," << res[i]->data.location.latitude << "," << res[i]->data.location.longitude << endl;
     }
     fs.close();
 }
@@ -433,7 +433,7 @@ void modeRangeSearch(KD_tree &Tree)
     }
     else if (outputMode == 3)
     {
-        outputRangeSearchConsole(res, resSize);
         outputRangeSearchCSV(res, resSize);
+        outputRangeSearchConsole(res, resSize);
     }
 }
